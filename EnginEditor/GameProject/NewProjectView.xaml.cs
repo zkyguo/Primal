@@ -24,5 +24,19 @@ namespace EnginEditor.GameProject
         {
             InitializeComponent();
         }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ViewModel = DataContext as NewProjectViewModel;
+            var projectPath = ViewModel.CreateProject(templateListBox.SelectedItem as ProjectTemplate);
+            var win = Window.GetWindow(this);
+            bool dialogResult = false;
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                dialogResult = true;
+            }
+            win.DialogResult = dialogResult;
+            win.Close();
+        }
     }
 }

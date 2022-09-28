@@ -8,7 +8,7 @@
             
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <local:ProjectInstance/>
+        <local:NewProjectViewModel/>
     </UserControl.DataContext>
     <Grid>
         <StackPanel Background="White">
@@ -33,19 +33,21 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Margin="0,30,0,0">
                 <TextBlock Text="Name : " Width="50"/>
-                <TextBox Width="550" Text="{Binding ProjectName}" />
+                <TextBox Width="550" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Margin="0,5,0,0">
                 <TextBlock Text="Path : " Width="50"/>
-                <TextBox Width="500" Text="{Binding ProjectPath}"/>
+                <TextBox Width="500" Text="{Binding ProjectPath, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Browser" Width="45" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Margin="0,30,0,0">
-                <Button Content="Create" Width="96" IsDefault="True"/>
+                <Button Content="Create" Width="96" IsDefault="True" IsEnabled="{Binding IsValid}"
+                        Click="CreateButton_Click"/>
                 <Button Content="Exit" Width="96" Margin="30,0,0,0" IsCancel="True"/>
             </StackPanel>
+            <TextBlock Text="{Binding ErrorMsg}" Margin="0,20,0,0" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -33,7 +33,7 @@ namespace EnginEditor.GameProject.Utilites
             }
         }
 
-        internal static T FromFile<T>(string path)
+        public static T FromFile<T>(string path)
         {
             try
             {
