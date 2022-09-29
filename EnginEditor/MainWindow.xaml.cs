@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,13 @@ namespace EnginEditor
         {
             InitializeComponent();
             Loaded += OnMainWindowLoaded;
+            Closing += OnMainWindowClosed;
+        }
+
+        private void OnMainWindowClosed(object sender, CancelEventArgs e)
+        {
+            Closing -= OnMainWindowClosed;
+            ProjectInstance.Current?.Unload();
         }
 
         private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
@@ -36,13 +44,14 @@ namespace EnginEditor
         private void OpenProjectBrowserDialog()
         {
             var projectBrowser = new ProjectBrowserDialog();
-            if (projectBrowser.ShowDialog() == false)
+            if (projectBrowser.ShowDialog() == false || projectBrowser.DataContext == null)
             {
                 Application.Current.Shutdown();
             }
             else
             {
-                
+                ProjectInstance.Current?.Unload();
+                DataContext = projectBrowser.DataContext;
             }
 
         }

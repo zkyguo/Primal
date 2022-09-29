@@ -34,6 +34,10 @@ namespace EnginEditor.GameProject
             if (!string.IsNullOrEmpty(projectPath))
             {
                 dialogResult = true;
+                //While creating new project, Open Project Window should load the new project on the list box
+                var project = OpenProjectViewModel.Open(new ProjectData() { ProjectPath = projectPath, ProjectName = ViewModel.ProjectName });
+                win.DataContext = project;
+
             }
             win.DialogResult = dialogResult;
             win.Close();

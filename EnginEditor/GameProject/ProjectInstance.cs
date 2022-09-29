@@ -1,11 +1,10 @@
 ﻿using EnginEditor.GameProject.Common;
-using System;
-using System.Collections.Generic;
+using EnginEditor.GameProject.Utilites;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace EnginEditor.GameProject
@@ -15,7 +14,7 @@ namespace EnginEditor.GameProject
     {
         public static string Extension { get; } = ".primal";
         [DataMember]
-        public string Name { get; private set; }
+        public string Name { get; private set; } 
         [DataMember]
         public string Path { get; private set; }
 
@@ -23,13 +22,59 @@ namespace EnginEditor.GameProject
 
         [DataMember(Name= "Scenes")]
         private ObservableCollection<Scene> _scenes = new ObservableCollection<Scene>();
-        public ReadOnlyCollection<Scene> Scenes { get;}
+        public ReadOnlyCollection<Scene> Scenes { get; private set; }
+
+        private Scene _activeScene;
+
+        public Scene ActiveScene
+        {
+            get => _activeScene; 
+            set 
+            {
+                if (_activeScene != value)
+                {
+                    _activeScene = value;
+                    OnPropertyChanged(nameof(ActiveScene));
+                }             
+            }
+        }
+
+
+        public static ProjectInstance Current => Application.Current.MainWindow.DataContext as ProjectInstance;
+
+
+        public static ProjectInstance Load(string filePath)
+        {
+            Debug.Assert(File.Exists(filePath));
+            return Serializer.FromFile<ProjectInstance>(filePath);
+        }
+
+        public void Unload()
+        {
+            
+        }
+
+        public static void Save(ProjectInstance project)
+        {
+            Serializer.ToFile(project, project.FullPath);
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            if (_scenes != null)
+            {
+                Scenes = new ReadOnlyObservableCollection<Scene>(_scenes);
+                OnPropertyChanged(nameof(Scenes));
+            }
+            Scenes.FirstOrDefault(x => x.IsActive);
+        }
 
         public ProjectInstance(string name, string path)
         {
             Name = name;
             Path = path;
-            _scenes.Add(new Scene(this, "Default Scene"));
+            OnDeserialized(new StreamingContext());
         }
     }
 }

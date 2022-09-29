@@ -24,5 +24,32 @@ namespace EnginEditor.GameProject
         {
             InitializeComponent();
         }
+
+       
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSelectedProject();
+        }
+
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenSelectedProject();
+        }
+
+        private void OpenSelectedProject()
+        {
+            var project = OpenProjectViewModel.Open(projectsListBox.SelectedItem as ProjectData);
+            var win = Window.GetWindow(this);
+            bool dialogResult = false;
+            if (project != null)
+            {
+                dialogResult = true;
+                win.DataContext = project;
+
+            }
+            win.DialogResult = dialogResult;
+            win.Close();
+        }
     }
 }

@@ -89,8 +89,6 @@ namespace EnginEditor.GameProject
             }
         }
 
-        
-
         public string ErrorMsg
         {
             get { return _errrorMsg; }
@@ -196,6 +194,7 @@ namespace EnginEditor.GameProject
                 {
                     Directory.CreateDirectory(path);
                 }
+
                 //Create basic folders
                 foreach (var folder in template.Folders)
                 {
@@ -206,12 +205,15 @@ namespace EnginEditor.GameProject
                 DirInfo.Attributes |= FileAttributes.Hidden;
                 //Copy Icon ans past it to info file
                 File.Copy(template.IconFilePath, Path.GetFullPath(Path.Combine(DirInfo.FullName, "Icon.png")));
-                File.Copy(template.IconFilePath, Path.GetFullPath(Path.Combine(DirInfo.FullName, "Screenshot.png")));
+                File.Copy(template.ScreenshotPath, Path.GetFullPath(Path.Combine(DirInfo.FullName, "Screenshot.png")));
+
                 //Read project info file 
                 var projectXML  = File.ReadAllText(template.ProjectFilePath);
+
                 //Replace {0} and {1} of .Primal by ProjectName and ProjectPath
                 projectXML = string.Format(projectXML, ProjectName, ProjectPath);
                 var projectPath = Path.GetFullPath(Path.Combine(path, $"{ProjectName}{ProjectInstance.Extension}"));
+
                 //Write the .Primal of template into project info file  
                 File.WriteAllText(projectPath, projectXML);
                 return path;
