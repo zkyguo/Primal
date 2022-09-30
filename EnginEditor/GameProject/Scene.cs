@@ -40,11 +40,6 @@ namespace EnginEditor.GameProject
 				}
 			}
 		}
-
-
-
-
-
 		public Scene(ProjectInstance project, string name)
 		{
 			Debug.Assert(project != null);

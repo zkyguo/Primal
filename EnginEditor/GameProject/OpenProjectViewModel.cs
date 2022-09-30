@@ -85,7 +85,7 @@ namespace EnginEditor.GameProject
         }
 
         /// <summary>
-        /// Update prpject last modify date and order them
+        /// Update prpject last modify date in appData and order them
         /// </summary>
         private static void WriteProjectData()
         {
@@ -98,7 +98,7 @@ namespace EnginEditor.GameProject
         public static ProjectInstance Open(ProjectData data)
         {
             ReadProjectData();
-            //Find the selected project
+            //Find the selected project 
             var project = _projects.FirstOrDefault(x => x.FullPath == data.FullPath);
 
             //Set date data of right now

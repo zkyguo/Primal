@@ -12,6 +12,7 @@ namespace EnginEditor.GameProject
     [DataContract(Name ="Game")]
      public class ProjectInstance : ViewModelBase
     {
+        #region Property
         public static string Extension { get; } = ".primal";
         [DataMember]
         public string Name { get; private set; } 
@@ -38,11 +39,21 @@ namespace EnginEditor.GameProject
                 }             
             }
         }
-
+        #endregion
 
         public static ProjectInstance Current => Application.Current.MainWindow.DataContext as ProjectInstance;
 
+        public void AddScene(string SceneName)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(SceneName.Trim()));
+            _scenes.Add(new Scene(this, SceneName));
+        }
 
+        /// <summary>
+        /// Read ProjectInstance from file path
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static ProjectInstance Load(string filePath)
         {
             Debug.Assert(File.Exists(filePath));

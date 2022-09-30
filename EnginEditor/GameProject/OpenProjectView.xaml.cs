@@ -23,9 +23,22 @@ namespace EnginEditor.GameProject
         public OpenProjectView()
         {
             InitializeComponent();
+            Loaded += UpDownRoll;
+
+
         }
 
-       
+        /// <summary>
+        /// Can use Up and Down arrow to browser project on created project list in Open project window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpDownRoll(object sender, RoutedEventArgs e)
+        {
+            var item = projectsListBox.ItemContainerGenerator.ContainerFromIndex(projectsListBox.SelectedIndex) as ListBoxItem;
+            item?.Focus();
+        }
+
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
