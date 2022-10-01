@@ -26,11 +26,5 @@ namespace EnginEditor.Editors
             InitializeComponent();
         }
 
-        private void AddSceneButton_Click(object sender, RoutedEventArgs e)
-        {
-            var vm = DataContext as ProjectInstance;
-            vm.AddScene("New Scene " + vm.Scenes.Count);
-           
-        }
     }
 }

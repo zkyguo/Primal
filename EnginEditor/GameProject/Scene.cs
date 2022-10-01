@@ -10,6 +10,7 @@ namespace EnginEditor.GameProject
     {
         
         private string _name;
+
         [DataMember]
         public string Name
 		{

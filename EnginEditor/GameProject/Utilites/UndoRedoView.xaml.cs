@@ -13,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EnginEditor.Editors
+namespace EnginEditor.GameProject.Utilites
 {
     /// <summary>
-    /// Interaction logic for WorldEditorView.xaml
+    /// Interaction logic for UndoRedoView.xaml
     /// </summary>
-    public partial class WorldEditorView : UserControl
+    public partial class UndoRedoView : UserControl
     {
-        public WorldEditorView()
+        public UndoRedoView()
         {
             InitializeComponent();
         }
-
-       
     }
 }

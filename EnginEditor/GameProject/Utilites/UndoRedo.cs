@@ -11,7 +11,7 @@ namespace EnginEditor.GameProject.Utilites
     /// <summary>
     /// Define which Command can implement undo redo action
     /// </summary>
-    interface IUndoRedo
+    public interface IUndoRedo
     {
         string Name { get; }
         void Undo();
@@ -38,11 +38,12 @@ namespace EnginEditor.GameProject.Utilites
             Debug.Assert(undo != null && redo != null);
             _undoAction = undo;
             _redoAction = redo;
+            Name = name;
         }
 
     }
 
-    class UndoRedo
+    public class UndoRedo
     {
         private readonly ObservableCollection<IUndoRedo> _redoList = new ObservableCollection<IUndoRedo>();
         private readonly ObservableCollection<IUndoRedo> _undoList = new ObservableCollection<IUndoRedo>();
