@@ -9,7 +9,7 @@
     <UserControl.DataContext>
         <local:UndoRedo/>
     </UserControl.DataContext>
-    <Grid>
+    <StackPanel>
 
         <ItemsControl ItemsSource="{Binding UndoList}">
             <ItemsControl.ItemsPanel>
@@ -37,5 +37,5 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-    </Grid>
+     </StackPanel>
 </UserControl>
