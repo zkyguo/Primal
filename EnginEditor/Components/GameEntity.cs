@@ -3,12 +3,16 @@ using EnginEditor.GameProject.Common;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Management;
+using System.Runtime.Serialization;
 
 namespace EnginEditor.Components
 {
+    [DataContract]
     public class GameEntity : ViewModelBase
     {
+        [DataMember]
 		private string _name;
+        [DataMember]
 		public string Name
 		{
             get => _name;
@@ -21,8 +25,9 @@ namespace EnginEditor.Components
                 }
             }
         }
+        [DataMember]
         public Scene ParentScene { get; private set; }
-
+        [DataMember(Name = nameof(Components))]
         private readonly ObservableCollection<Component> _components = new ObservableCollection<Component>();
         public ReadOnlyObservableCollection<Component> Components { get; }
 
