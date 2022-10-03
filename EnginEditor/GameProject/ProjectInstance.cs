@@ -26,8 +26,7 @@ namespace EnginEditor.GameProject
         #endregion
 
         #region Scene 
-        public ICommand AddScene { get; private set; }
-        public ICommand RemoveScene { get; private set; }
+        
 
         private Scene _activeScene;
 
@@ -64,8 +63,21 @@ namespace EnginEditor.GameProject
         #region UndoRedo
         public static UndoRedo UndoRedo { get; } = new UndoRedo();
 
-        public ICommand Undo { get; private set; } 
-        public ICommand Redo { get; private set; }
+        #endregion
+
+        #region Commands
+        public ICommand UndoCommand { get; private set; }
+        public ICommand RedoCommand { get; private set; }
+        public ICommand AddSceneCommand { get; private set; }
+        public ICommand RemoveSceneCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        #endregion
+
+        #region Save Project
+        public static void Save(ProjectInstance project)
+        {
+            Serializer.ToFile(project, project.FullPath);
+        }
         #endregion
 
         public static ProjectInstance Current => Application.Current.MainWindow.DataContext as ProjectInstance;
@@ -86,10 +98,7 @@ namespace EnginEditor.GameProject
             
         }
 
-        public static void Save(ProjectInstance project)
-        {
-            Serializer.ToFile(project, project.FullPath);
-        }
+       
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
@@ -102,7 +111,7 @@ namespace EnginEditor.GameProject
             ActiveScene = Scenes.FirstOrDefault(x => x.IsActive);
 
             //Define Add Scene Command
-            AddScene = new RelayCommand<Object>(x =>
+            AddSceneCommand = new RelayCommand<Object>(x =>
             {
                 //Define AddScene Action
                 _addScene($"New Scene {_scenes.Count}");
@@ -118,7 +127,7 @@ namespace EnginEditor.GameProject
             });
 
             //Define Remove Scene Command
-            RemoveScene = new RelayCommand<Scene>(x =>
+            RemoveSceneCommand = new RelayCommand<Scene>(x =>
             {
                 //
                 var sceneIndex = _scenes.IndexOf(x);
@@ -131,8 +140,9 @@ namespace EnginEditor.GameProject
                     ));
             }, x => !x.IsActive);
 
-            Undo = new RelayCommand<Object>(x => UndoRedo.Undo());
-            Redo = new RelayCommand<Object>(x => UndoRedo.Redo());
+            UndoCommand = new RelayCommand<Object>(x => UndoRedo.Undo());
+            RedoCommand = new RelayCommand<Object>(x => UndoRedo.Redo());
+            SaveCommand = new RelayCommand<Object>(x => Save(this));
 
         }
 
