@@ -1,5 +1,7 @@
-﻿using EnginEditor.GameProject.Common;
+﻿using EnginEditor.Components;
+using EnginEditor.GameProject.Common;
 using System.CodeDom;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
@@ -41,6 +43,11 @@ namespace EnginEditor.GameProject
 				}
 			}
 		}
+
+		private readonly ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
+		public ReadOnlyObservableCollection<GameEntity> GameEntities { get; }
+
+
 		public Scene(ProjectInstance project, string name)
 		{
 			Debug.Assert(project != null);

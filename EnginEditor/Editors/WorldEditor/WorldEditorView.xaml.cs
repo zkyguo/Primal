@@ -1,5 +1,7 @@
-﻿using System;
+﻿using EnginEditor.GameProject;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,8 @@ namespace EnginEditor.Editors
         {
             Loaded -= OnWorldEditorViewLoaded;
             Focus();
+            //Once collection changed, we keep keyboard focus
+            ((INotifyCollectionChanged)ProjectInstance.UndoRedo.UndoList).CollectionChanged += (s, e) => Focus();
         }
     }
 }
