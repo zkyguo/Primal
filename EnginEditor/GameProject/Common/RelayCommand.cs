@@ -14,7 +14,7 @@ namespace EnginEditor.GameProject.Common
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
+            add { CommandManager.RequerySuggested += value; } 
             remove { CommandManager.RequerySuggested -= value; }    
         }
 

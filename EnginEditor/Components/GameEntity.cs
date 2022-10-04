@@ -48,6 +48,7 @@ namespace EnginEditor.Components
             Debug.Assert(scene != null);
             ParentScene = scene;
             _components.Add(new Transform(this));
+            OnDeserialized(new StreamingContext());
         }
 
 
