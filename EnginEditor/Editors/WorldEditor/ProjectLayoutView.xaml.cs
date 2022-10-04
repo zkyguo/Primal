@@ -1,4 +1,5 @@
-﻿using EnginEditor.GameProject;
+﻿using EnginEditor.Components;
+using EnginEditor.GameProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,11 @@ namespace EnginEditor.Editors
             InitializeComponent();
         }
 
+        private void AddGameEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = btn.DataContext as Scene;
+            vm.AddGameEntityCommand.Execute(new GameEntity(vm) { Name = "Empty game entity" });
+        }
     }
 }

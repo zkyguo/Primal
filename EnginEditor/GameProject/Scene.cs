@@ -79,12 +79,14 @@ namespace EnginEditor.GameProject
         [OnDeserialized]
 		private void OnDeserialization(StreamingContext context)
 		{
+			
 			if(_gameEntities != null)
 			{
 				GameEntities = new ReadOnlyObservableCollection<GameEntity>(_gameEntities);
 				OnPropertyChanged(nameof(GameEntities));
 
 			}
+			
             AddGameEntityCommand = new RelayCommand<GameEntity>(x =>
             {
                 //Define AddScene Action

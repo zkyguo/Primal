@@ -62,7 +62,9 @@ namespace EnginEditor.Components
 
         public Transform(GameEntity entity) : base(entity)
         {
-
+            _position = new Vector3(0);
+            _rotation = new Vector3(0);
+            _scale = new Vector3(1);
         }
     }
 }
