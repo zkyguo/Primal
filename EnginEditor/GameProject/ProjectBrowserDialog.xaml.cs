@@ -22,6 +22,19 @@ namespace EnginEditor.GameProject
         public ProjectBrowserDialog()
         {
             InitializeComponent();
+            Loaded += OpenProjectBrowserDialogLoaded;
+        }
+
+        private void OpenProjectBrowserDialogLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OpenProjectBrowserDialogLoaded;
+            if(!OpenProjectViewModel.Projects.Any())
+            {
+                openProjectButton.IsEnabled = false;
+                openProjectView.Visibility = Visibility.Hidden;
+                onToggleButton_Click(createProjectButton, new RoutedEventArgs());
+            }
+
         }
 
         private void onToggleButton_Click(object sender, RoutedEventArgs e)

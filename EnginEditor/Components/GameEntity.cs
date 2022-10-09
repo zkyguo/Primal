@@ -11,8 +11,13 @@ namespace EnginEditor.Components
     [KnownType(typeof(Transform))]
     public class GameEntity : ViewModelBase
     {
-        [DataMember]
-		private string _name;
+        #region Private
+        private string _name;
+        private bool _isEnable = true;
+        #endregion
+
+        #region Property
+
         [DataMember]
 		public string Name
 		{
@@ -31,6 +36,23 @@ namespace EnginEditor.Components
         [DataMember(Name = nameof(Components))]
         private readonly ObservableCollection<Component> _components = new ObservableCollection<Component>();
         public ReadOnlyObservableCollection<Component> Components { get; private set; }
+
+        [DataMember]
+        public bool IsEnable { 
+            
+            get => _isEnable; 
+            set 
+            {
+                if( _isEnable != value)
+                {
+                    _isEnable = value;
+                    OnPropertyChanged(nameof(IsEnable));
+                }
+
+            }
+        }
+
+        #endregion
 
         [OnDeserialized]
         void OnDeserialized(StreamingContext context)
