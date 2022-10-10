@@ -33,13 +33,21 @@ namespace EnginEditor.GameProject.Utilites
             Name = name;
         }
 
-        public UndoRedoAction(Action undo, Action redo, string name)
+        public UndoRedoAction(Action undo, Action redo, string name) : this(name)
         {
             Debug.Assert(undo != null && redo != null);
             _undoAction = undo;
             _redoAction = redo;
             Name = name;
         }
+
+        public UndoRedoAction(string property, object instance, object undoValue, object redoValue, string name)
+            :this(
+
+                 () => instance.GetType().GetProperty(property).SetValue(instance, undoValue),
+                 () => instance.GetType().GetProperty(property).SetValue(instance, redoValue),
+                 name)
+        {}
 
     }
 

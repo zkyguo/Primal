@@ -1,9 +1,11 @@
 ﻿using EnginEditor.GameProject;
 using EnginEditor.GameProject.Common;
+using EnginEditor.GameProject.Utilites;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Management;
 using System.Runtime.Serialization;
+using System.Windows.Input;
 
 namespace EnginEditor.Components
 {
@@ -14,6 +16,13 @@ namespace EnginEditor.Components
         #region Private
         private string _name;
         private bool _isEnable = true;
+        #endregion
+
+        #region Commands
+
+        public ICommand RenameCommand { get; set; }
+        public ICommand EnableCommand { get; set; }
+
         #endregion
 
         #region Property
@@ -61,8 +70,25 @@ namespace EnginEditor.Components
             {
                 Components = new ReadOnlyObservableCollection<Component>(_components);
                 OnPropertyChanged(nameof(Components));
-            }    
-            
+            }
+
+            RenameCommand = new RelayCommand<string>(x =>
+            {
+                var oldName = _name;
+                Name = x;
+
+                ProjectInstance.UndoRedo.Add(new UndoRedoAction(nameof(Name), this, oldName, x, $"Rename entity {oldName} to {x}"));
+
+            }, x => x != _name);
+
+            EnableCommand = new RelayCommand<bool>(x =>
+            {
+                var previousValue = _isEnable;
+                _isEnable = x;
+
+                ProjectInstance.UndoRedo.Add(new UndoRedoAction(nameof(IsEnable), this, previousValue, x, x?$"Entity {Name} is Enable" : $"Entity {Name} is Disable"));
+
+            });
         }
 
         public GameEntity(Scene scene)
