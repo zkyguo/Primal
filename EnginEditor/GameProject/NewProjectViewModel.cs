@@ -223,6 +223,7 @@ namespace EnginEditor.GameProject
             {
 
                 Debug.WriteLine(e.Message);
+                Logger.Log(MessageType.Error, $"Failed to create {ProjectName}");
                 return string.Empty;
             }
         }

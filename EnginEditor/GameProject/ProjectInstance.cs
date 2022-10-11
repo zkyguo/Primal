@@ -77,6 +77,7 @@ namespace EnginEditor.GameProject
         public static void Save(ProjectInstance project)
         {
             Serializer.ToFile(project, project.FullPath);
+            Logger.Log(MessageType.Info, $"Project saved to {project.FullPath}");
         }
         #endregion
 
@@ -95,7 +96,7 @@ namespace EnginEditor.GameProject
 
         public void Unload()
         {
-            
+            UndoRedo.Reset();
         }
 
        
