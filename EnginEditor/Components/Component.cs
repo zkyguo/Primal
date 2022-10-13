@@ -10,8 +10,10 @@ using System.Windows.Controls;
 
 namespace EnginEditor.Components
 {
+    interface IMSComponent { }
+
     [DataContract]
-    public class Component : ViewModelBase
+    public abstract class Component : ViewModelBase
     {
         [DataMember]
         public GameEntity Owner { get; private set; }
@@ -22,6 +24,12 @@ namespace EnginEditor.Components
 
         }
 
+    }
+
+    abstract class MSComponent<T> : ViewModelBase, IMSComponent where T : Component {
+    
+
 
     }
 }
+

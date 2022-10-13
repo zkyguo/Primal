@@ -30,10 +30,10 @@ namespace EnginEditor.Editors
             GameEntityView.Instance.DataContext = null;
             var listBox = sender as ListBox;
 
-            if (e.AddedItems.Count > 0)
+            /*if (e.AddedItems.Count > 0)
             {
                 GameEntityView.Instance.DataContext = listBox.SelectedItems[0];
-            }
+            }*/
             
             var newSelection = listBox.SelectedItems.Cast<GameEntity>().ToList();
             var previousSelection = newSelection.Except(e.AddedItems.Cast<GameEntity>()).Concat(e.RemovedItems.Cast<GameEntity>()).ToList();
@@ -52,6 +52,17 @@ namespace EnginEditor.Editors
                 }, 
                 "Selection changed"
                 ));
+
+            MSGameEntity MSEntity = null;
+            if (newSelection.Any())
+            {
+                MSEntity = new MSGameEntity(newSelection);
+            }
+            GameEntityView.Instance.DataContext = MSEntity;
+            
+
         }
+
+        
     }
 }

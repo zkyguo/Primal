@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace EnginEditor.Components
 {
     [DataContract]
-    public class Transform : Component
+    class Transform : Component
     {
         [DataMember]
         private Vector3 _position;
