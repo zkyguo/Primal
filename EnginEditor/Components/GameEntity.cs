@@ -24,9 +24,6 @@ namespace EnginEditor.Components
 
         #region Commands
 
-        public ICommand RenameCommand { get; set; }
-        public ICommand EnableCommand { get; set; }
-
         #endregion
 
         #region Property
@@ -76,23 +73,6 @@ namespace EnginEditor.Components
                 OnPropertyChanged(nameof(Components));
             }
 
-            RenameCommand = new RelayCommand<string>(x =>
-            {
-                var oldName = _name;
-                Name = x;
-
-                ProjectInstance.UndoRedo.Add(new UndoRedoAction(nameof(Name), this, oldName, x, $"Rename entity {oldName} to {x}"));
-
-            }, x => x != _name);
-
-            EnableCommand = new RelayCommand<bool>(x =>
-            {
-                var previousValue = _isEnable;
-                _isEnable = x;
-
-                ProjectInstance.UndoRedo.Add(new UndoRedoAction(nameof(IsEnable), this, previousValue, x, x?$"Entity {Name} is Enable" : $"Entity {Name} is Disable"));
-
-            });
         }
 
         public GameEntity(Scene scene)

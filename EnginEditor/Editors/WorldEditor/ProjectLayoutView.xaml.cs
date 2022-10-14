@@ -34,7 +34,7 @@ namespace EnginEditor.Editors
             {
                 GameEntityView.Instance.DataContext = listBox.SelectedItems[0];
             }*/
-            
+
             var newSelection = listBox.SelectedItems.Cast<GameEntity>().ToList();
             var previousSelection = newSelection.Except(e.AddedItems.Cast<GameEntity>()).Concat(e.RemovedItems.Cast<GameEntity>()).ToList();
 
@@ -59,7 +59,7 @@ namespace EnginEditor.Editors
                 MSEntity = new MSGameEntity(newSelection);
             }
             GameEntityView.Instance.DataContext = MSEntity;
-            
+
 
         }
 
