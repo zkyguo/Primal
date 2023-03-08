@@ -205,7 +205,7 @@ namespace EnginEditor.Components
     }
 
     /// <summary>
-    /// Define all action while Multi-selecting a GameEntity
+    /// Define all Multi-selecting a GameEntity
     /// </summary>
     class MSGameEntity : MSEntity
     {

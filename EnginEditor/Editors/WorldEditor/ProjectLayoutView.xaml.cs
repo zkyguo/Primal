@@ -53,9 +53,12 @@ namespace EnginEditor.Editors
                 "Selection changed"
                 ));
 
+            //Clean current multi select gameEntity
             MSGameEntity MSEntity = null;
+            //if newSelection has element
             if (newSelection.Any())
             {
+                //Set the new select GameEntity as MSGameEntity
                 MSEntity = new MSGameEntity(newSelection);
             }
             GameEntityView.Instance.DataContext = MSEntity;

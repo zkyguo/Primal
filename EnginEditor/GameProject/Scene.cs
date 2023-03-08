@@ -51,7 +51,7 @@ namespace EnginEditor.GameProject
         #region GameEntity in Scene
         [DataMember(Name =nameof(GameEntities))]
 		private readonly ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
-		public ReadOnlyObservableCollection<GameEntity> GameEntities { get; private set; }
+		public ReadOnlyObservableCollection<GameEntity > GameEntities { get; private set; }
 		#endregion
 
 		#region Game Entity Operation
